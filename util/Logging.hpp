@@ -1,6 +1,6 @@
 //
 // Logging.hpp
-// mrlib++
+// mrlib
 //
 // Created by Matthew Remmel on 12/16/15.
 // Copyright (c) 2015 Matthew Remmel. All rights reserved.
