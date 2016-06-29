@@ -26,6 +26,7 @@
 #endif
 
 
+// Convenience macros for logging verbose messages and doing log level checks before string construction
 #define LOG mrlib::Logging::SharedInstance()
 #define _VLOG(level, message) { std::ostringstream oss; oss << "File: " << __FILENAME__ << ":" << __LINE__ << " Message: " << message; LOG.level(oss.str()); }
 
