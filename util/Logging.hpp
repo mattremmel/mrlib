@@ -5,6 +5,18 @@
 // Created by Matthew Remmel on 12/16/15.
 // Copyright (c) 2015 Matthew Remmel. All rights reserved.
 
+/*
+ * The purpose of this class is to provide a full featured and expandable logging class that
+ * supports setting up a single configured shared logger and being able to easily use that
+ * instance throughout your project. Convenience macros were created that will automatically
+ * create a formatted log message that includes the file the log message came from, the line
+ * number of the log message, the log level of the log message, and a timestamp. There is also
+ * a macro if you would like to add the function information to your log message. By default,
+ * the logging level is set to debug and to print to the console. If a log file is specified
+ * then the logger will append to that log file as well as the console. Printing to the console
+ * can optionally be turned off.
+ */
+
 
 #ifndef MRLIB_LOGGING_HPP
 #define MRLIB_LOGGING_HPP
