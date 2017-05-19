@@ -53,54 +53,62 @@
 namespace mrlib {
 
     enum class LogLevel {
-        all   = 0,
-        trace = 10,
-        debug = 20,
-        info  = 30,
-        warn  = 40,
-        error = 50,
-        fatal = 60,
-        off   = 70
+        all      = 0,
+        trace    = 10,
+        debug    = 20,
+        info     = 30,
+        notice   = 40,
+        warning  = 50,
+        error    = 60,
+        critical = 70,
+        alert    = 80,
+        fatal    = 90,
+        off      = 100
     };
 
     class Logging {
     public:
-
         // Internal Data
-        LogLevel      _logLevel;
-        bool          _toConsole;
-        std::string   _logFilePath;
+        LogLevel _logLevel;
+        bool _toConsole;
+        std::string _logFilePath;
 
         // Singleton
-        static Logging&  SharedInstance();
-        static void      InitSharedInstance(LogLevel level = LogLevel::debug);
-        static void      InitSharedInstance(const std::string& log_file, bool to_console = true, LogLevel level = LogLevel::debug);
+        static Logging& SharedInstance();
+        static void InitSharedInstance(LogLevel level = LogLevel::debug);
+        static void InitSharedInstance(const std::string& log_file, bool to_console = true, LogLevel level = LogLevel::debug);
 
         // Constructors
         Logging(LogLevel level = LogLevel::debug);
         Logging(const std::string& log_file_path, bool to_console = true, LogLevel level = LogLevel::debug);
 
         // Logging
-        void  trace(const std::string& message) const;
-        void  debug(const std::string& message) const;
-        void  info(const std::string& message) const;
-        void  warn(const std::string& message) const;
-        void  error(const std::string& message) const;
-        void  fatal(const std::string& message) const;
-        void  write(const std::string& message) const;
+        void trace(const std::string& message) const;
+        void debug(const std::string& message) const;
+        void info(const std::string& message) const;
+        void notice(const std::string& message) const;
+        void warning(const std::string& message) const;
+        void error(const std::string& message) const;
+        void critical(const std::string& message) const;
+        void alert(const std::string& message) const;
+        void fatal(const std::string& message) const;
+        void write(const std::string& message) const;
 
         // Getting Log Level
-        LogLevel  getLogLevel() const;
-        bool      traceEnabled() const;
-        bool      debugEnabled() const;
-        bool      infoEnabled() const;
-        bool      warnEnabled() const;
-        bool      errorEnabled() const;
-        bool      fatalEnabled() const;
-        bool      isOff() const;
+        LogLevel getLogLevel() const;
+        bool traceEnabled() const;
+        bool debugEnabled() const;
+        bool infoEnabled() const;
+        bool noticeEnabled() const;
+        bool warnEnabled() const;
+        bool errorEnabled() const;
+        bool criticalEnabled() const;
+        bool alertEnabled() const;
+        bool fatalEnabled() const;
+        bool isOff() const;
 
         // Setting Log Level
-        void  setLogLevel(LogLevel level);
+        void setLogLevel(LogLevel level);
 
         // Getting Log File Path
         std::string getLogFilePath() const;
@@ -170,15 +178,23 @@ namespace mrlib {
     void Logging::info(const std::string& message) const {
 
         if (this->_logLevel <= LogLevel::info) {
-            this->write(std::string("[INFO]  ") + message);
+            this->write(std::string("[INFO] ") + message);
         }
     }
 
     inline
-    void Logging::warn(const std::string& message) const {
+    void Logging::notice(const std::string& message) const {
+
+        if (this->_logLevel <= LogLevel::notice) {
+            this->write(std::string("[NOTICE] ") + message);
+        }
+    }
+
+    inline
+    void Logging::warning(const std::string& message) const {
 
         if (this->_logLevel <= LogLevel::warn) {
-            this->write(std::string("[WARN]  ") + message);
+            this->write(std::string("[WARNING] ") + message);
         }
     }
 
@@ -187,6 +203,22 @@ namespace mrlib {
 
         if (this->_logLevel <= LogLevel::error) {
             this->write(std::string("[ERROR] ") + message);
+        }
+    }
+
+    inline
+    void Logging::critical(const std::string& message) const {
+
+        if (this->_logLevel <= LogLevel::critical) {
+            this->write(std::string("[CRITICAL] ") + message);
+        }
+    }
+
+    inline
+    void Logging::alert(const std::string& message) const {
+
+        if (this->_logLevel <= LogLevel::alert) {
+            this->write(std::string("[ALERT] ") + message);
         }
     }
 
@@ -227,13 +259,13 @@ namespace mrlib {
                 if (ofs.is_open()) {
                     ofs << output;
                     ofs.close();
-                }
-                else {
+                } else {
                     throw std::invalid_argument("Error opening file at path: " + this->_logFilePath);
                 }
             }
             catch (std::exception e) {
-                throw std::invalid_argument("Exception opening file at: " + this->_logFilePath + " error: " + e.what());
+                throw std::invalid_argument(
+                        "Exception opening file at path: " + this->_logFilePath + " error: " + e.what());
             }
         }
     }
@@ -261,13 +293,28 @@ namespace mrlib {
     }
 
     inline
-    bool Logging::warnEnabled() const {
-        return this->_logLevel <= LogLevel::warn;
+    bool Logging::noticeEnabled() const {
+        return this->_logLevel <= LogLevel::notice;
+    }
+
+    inline
+    bool Logging::warningEnabled() const {
+        return this->_logLevel <= LogLevel::warning;
     }
 
     inline
     bool Logging::errorEnabled() const {
         return this->_logLevel <= LogLevel::error;
+    }
+
+    inline
+    bool Logging::criticalEnabled() const {
+        return this->_logLevel <= LogLevel::critical;
+    }
+
+    inline
+    bool Logging::alertEnabled() const {
+        return this->_logLevel <= LogLevel::alert;
     }
 
     inline
@@ -294,7 +341,7 @@ namespace mrlib {
         return this->_logFilePath;
     }
 
-    
+
     // Setting Log File Path
     inline
     void Logging::setLogFilePath(const std::string& log_file_path) {
