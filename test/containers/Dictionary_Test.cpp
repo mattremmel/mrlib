@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 11/21/15.
+// Dictionary_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 11/21/15.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #import "Dictionary.hpp"
 #import "gtest.h"

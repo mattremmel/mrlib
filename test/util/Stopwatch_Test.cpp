@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 11/16/15.
+// Stopwatch_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 11/16/15.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "Stopwatch.hpp"
 #include "gtest.h"

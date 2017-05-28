@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 3/1/16.
+// Logging_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 3/1/16.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "Logging.hpp"
 #include "gtest.h"

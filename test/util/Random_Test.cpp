@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 11/14/15.
+// Random_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 11/14/15.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "gtest.h"
 #include "Random.hpp" // TODO: If Random.hpp is included first before gtest.h, there are compile errors
@@ -42,7 +45,6 @@ TEST(Random, int_max_parameter) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, int_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -50,7 +52,6 @@ TEST(Random, int_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextInt(-1));
 }
-#endif
 
 TEST(Random, int_min_max_positive) {
     // Setup
@@ -76,7 +77,6 @@ TEST(Random, int_min_max_negative) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, int_min_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -84,7 +84,6 @@ TEST(Random, int_min_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextInt(5, 1));
 }
-#endif
 
 // NextLong
 
@@ -112,7 +111,6 @@ TEST(Random, long_max) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, long_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -120,7 +118,6 @@ TEST(Random, long_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextLong(-1));
 }
-#endif
 
 TEST(Random, long_min_max_positive) {
     // Setup
@@ -146,7 +143,6 @@ TEST(Random, long_min_max_negative) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, long_min_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -154,7 +150,6 @@ TEST(Random, long_min_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextLong(-1));
 }
-#endif
 
 // NextFloat
 
@@ -182,7 +177,6 @@ TEST(Random, float_max) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, float_max_no_bounds_check) {
     // Setup
     Random random = Random();
@@ -190,7 +184,6 @@ TEST(Random, float_max_no_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextFloat(-1.5));
 }
-#endif
 
 TEST(Random, float_min_max_positive) {
     // Setup
@@ -216,7 +209,6 @@ TEST(Random, float_min_max_negative) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, float_min_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -224,7 +216,6 @@ TEST(Random, float_min_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextFloat(5.5, 1.5));
 }
-#endif
 
 // NextDouble
 
@@ -252,7 +243,6 @@ TEST(Random, double_max) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, double_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -260,7 +250,6 @@ TEST(Random, double_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextDouble(-1.5));
 }
-#endif
 
 TEST(Random, double_min_max_positive) {
     // Setup
@@ -286,7 +275,6 @@ TEST(Random, double_min_max_negative) {
     }
 }
 
-#ifndef NO_BOUNDS_CHECK
 TEST(Random, double_min_max_bounds_check) {
     // Setup
     Random random = Random();
@@ -294,7 +282,6 @@ TEST(Random, double_min_max_bounds_check) {
     // Assertion
     EXPECT_ANY_THROW(random.nextDouble(5.5, 1.5));
 }
-#endif
 
 // NextBoolean
 

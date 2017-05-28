@@ -1,10 +1,12 @@
 //
-// Created by Matthew on 5/25/17.
+// Timer_Test.hpp
+// mrlib
 //
+// Created by Matthew Remmel on 5/25/17.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "Timer.hpp"
 #include "gtest.h"
-#include <cstdio>
 
 using namespace mrlib;
 

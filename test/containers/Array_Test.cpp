@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 2/17/16.
+// Array_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 2/17/16.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "Array.hpp"
 #include "gtest.h"

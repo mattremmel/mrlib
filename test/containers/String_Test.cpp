@@ -1,6 +1,9 @@
 //
-// Created by Matthew on 7/29/15.
+// String_Test.cpp
+// mrlib
 //
+// Created by Matthew Remmel on 7/29/15.
+// Copyright (c) 2017 Matthew Remmel. All rights reserved.
 
 #include "String.hpp"
 #include "gtest.h"
