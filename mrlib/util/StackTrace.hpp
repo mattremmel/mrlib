@@ -29,12 +29,12 @@
 namespace mrlib {
 
     class StackMarker {
-    private:
+    public:
+        // Internal Data
         std::string _filename;
         std::string _functionName;
         int _lineNumber;
 
-    public:
         // Constructors
         StackMarker(const std::string& filename, const std::string& function_name, int line_number);
 
@@ -52,10 +52,10 @@ namespace mrlib {
 
 
     class StackTrace {
-    private:
+    public:
+        // Internal Data
         static std::vector<StackMarker> _callStack;
 
-    public:
         // Init StackTrace
         static void init();
 
