@@ -17,9 +17,6 @@ namespace mrlib {
 
     class Timer {
     public:
-        // Constants
-        static const size_t Infinite = -1l;
-
         // Internal Data
         std::thread                _thread;
         volatile bool              _isAlive;
@@ -36,22 +33,23 @@ namespace mrlib {
         Timer(const std::chrono::duration<Rep, Period>& interval, const std::function<void(void)>& target);
         template<class Rep, class Period>
         Timer(const std::chrono::duration<Rep, Period>& interval, size_t repeatCount, const std::function<void(void)>& target);
+        // TODO: Add timepoint parameter
 
         // Getters
-        bool                      isAlive() const;
-        size_t                    getCallCount() const;
-        size_t                    getRepeatCount() const;
+        bool    isAlive() const;
+        size_t  getCallCount() const;
+        size_t  getRepeatCount() const;
         std::chrono::nanoseconds  getInterval() const;
 
         // Setters
-        void  setRepeatCount(size_t count);
+        void setRepeatCount(size_t count);
         template<class Rep, class Period>
-        void  setInterval(const std::chrono::duration<Rep, Period>& interval);
-        void  setTarget(const std::function<void(void)>& target);
+        void setInterval(const std::chrono::duration<Rep, Period>& interval);
+        void setTarget(const std::function<void(void)>& target);
 
         // Operation
-        void  start(bool async = true);
-        void  stop();
+        void start(bool async = true);
+        void stop();
     };
 
 
@@ -65,7 +63,7 @@ namespace mrlib {
     Timer::Timer(const std::chrono::duration<Rep, Period>& interval, const std::function<void(void)>& target) {
         this->_isAlive = false;
         this->_callCount = 0;
-        this->_repeatCount = Timer::Infinite;
+        this->_repeatCount = -1l;
         this->_interval = std::chrono::duration_cast<std::chrono::nanoseconds>(interval);
         this->_target = target;
     }
@@ -137,14 +135,17 @@ namespace mrlib {
     inline
     void Timer::stop() {
         this->_isAlive = false;
-        this->_thread.join();
+
+        if (this->_thread.joinable()) {
+            this->_thread.join();
+        }
     }
 
     // Internal Functions
     inline
     void Timer::_run() {
 
-        while (this->_isAlive && (this->_repeatCount == Timer::Infinite || this->_repeatCount-- > 0)) {
+        while (this->_isAlive && (this->_repeatCount == -1l || this->_repeatCount-- > 0)) {
             std::this_thread::sleep_for(this->_interval);
             this->_target();
             ++this->_callCount;
