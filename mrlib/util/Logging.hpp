@@ -39,15 +39,29 @@
 
 
 // Convenience macros for logging verbose messages and doing log level checks before string construction
-#define LOG mrlib::Logging::SharedInstance()
-#define _VLOG(level, message) { std::ostringstream oss; oss << "File: " << __FILENAME__ << ":" << __LINE__ << " Message: " << message; LOG.level(oss.str()); }
+#define _SHARED_LOG mrlib::Logging::SharedInstance()
+#define _LOG(level, message) { _SHARED_LOG.level(message); }
+#define _VLOG(level, message) { std::ostringstream oss; oss << "File: " << __FILENAME__ << ":" << __LINE__ << " Message: " << message; _SHARED_LOG.level(oss.str()); }
 
-#define LOG_TRACE(message) if (LOG.traceEnabled()) _VLOG(trace, message)
-#define LOG_DEBUG(message) if (LOG.debugEnabled()) _VLOG(debug, message)
-#define LOG_INFO(message)  if (LOG.infoEnabled())  _VLOG(info,  message)
-#define LOG_WARN(message)  if (LOG.warnEnabled())  _VLOG(warn,  message)
-#define LOG_ERROR(message) if (LOG.errorEnabled()) _VLOG(error, message)
-#define LOG_FATAL(message) if (LOG.fatalEnabled()) _VLOG(fatal, message)
+#define LOG_TRACE(message)     if (LOG.traceEnabled())     _LOG(trace, message)
+#define LOG_DEBUG(message)     if (LOG.debugEnabled())     _LOG(debug, message)
+#define LOG_INFO(message)      if (LOG.infoEnabled())      _LOG(info,  message)
+#define LOG_NOTICE(message)    if (LOG.noticeEnabled())    _LOG(notice, message)
+#define LOG_WARNING(message)   if (LOG.warningEnabled())   _LOG(warning,  message)
+#define LOG_ERROR(message)     if (LOG.errorEnabled())     _LOG(error, message)
+#define LOG_CRITICAL(message)  if (LOG.criticallEnabled()) _LOG(critical, message)
+#define LOG_ALERT(message)     if (LOG.alertEnabled())     _LOG(alert, message)
+#define LOG_FATAL(message)     if (LOG.fatalEnabled())     _LOG(fatal, message)
+
+#define VLOG_TRACE(message)    if (LOG.traceEnabled())     _VLOG(trace, message)
+#define VLOG_DEBUG(message)    if (LOG.debugEnabled())     _VLOG(debug, message)
+#define VLOG_INFO(message)     if (LOG.infoEnabled())      _VLOG(info,  message)
+#define VLOG_NOTICE(message)   if (LOG.noticeEnabled())    _VLOG(notice, message)
+#define VLOG_WARNING(message)  if (LOG.warningEnabled())   _VLOG(warning,  message)
+#define VLOG_ERROR(message)    if (LOG.errorEnabled())     _VLOG(error, message)
+#define VLOG_CRITICAL(message) if (LOG.criticallEnabled()) _VLOG(critical, message)
+#define VLOG_ALERT(message)    if (LOG.alertEnabled())     _VLOG(alert, message)
+#define VLOG_FATAL(message)    if (LOG.fatalEnabled())     _VLOG(fatal, message)
 
 
 namespace mrlib {
@@ -69,8 +83,8 @@ namespace mrlib {
     class Logging {
     public:
         // Internal Data
-        LogLevel _logLevel;
-        bool _toConsole;
+        LogLevel    _logLevel;
+        bool        _toConsole;
         std::string _logFilePath;
 
         // Singleton
@@ -95,12 +109,12 @@ namespace mrlib {
         void write(const std::string& message) const;
 
         // Getting Log Level
-        LogLevel getLogLevel() const;
+        LogLevel  getLogLevel() const;
         bool traceEnabled() const;
         bool debugEnabled() const;
         bool infoEnabled() const;
         bool noticeEnabled() const;
-        bool warnEnabled() const;
+        bool warningEnabled() const;
         bool errorEnabled() const;
         bool criticalEnabled() const;
         bool alertEnabled() const;
@@ -193,7 +207,7 @@ namespace mrlib {
     inline
     void Logging::warning(const std::string& message) const {
 
-        if (this->_logLevel <= LogLevel::warn) {
+        if (this->_logLevel <= LogLevel::warning) {
             this->write(std::string("[WARNING] ") + message);
         }
     }
