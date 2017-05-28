@@ -337,22 +337,22 @@ TEST(String, operator_inequality_self) {
 
 // StringWithContentsOfFile
 
-TEST(String, file_io_string) {
-    // Setup
-    String path = String("/Users/matthew/Desktop/test.txt");
-    String string = String::StringWithContentsOfFile(path);
-
-    // Assertion
-    EXPECT_STREQ("hello\nworld\n", string.c_string());
-}
-
-TEST(String, file_io_no_file) {
-    // Setup
-    String path = String::String("bad_file");
-
-    // Assertion
-    EXPECT_ANY_THROW(String::StringWithContentsOfFile(path));
-}
+//TEST(String, file_io_string) {
+//    // Setup
+//    String path = String("/Users/matthew/Desktop/test.txt");
+//    String string = String::StringWithContentsOfFile(path);
+//
+//    // Assertion
+//    EXPECT_STREQ("hello\nworld\n", string.c_string());
+//}
+//
+//TEST(String, file_io_no_file) {
+//    // Setup
+//    String path = String::String("bad_file");
+//
+//    // Assertion
+//    EXPECT_ANY_THROW(String::StringWithContentsOfFile(path));
+//}
 
 
 ///////////////////////
@@ -361,46 +361,46 @@ TEST(String, file_io_no_file) {
 
 // WriteToFile
 
-TEST(String, write_to_file) {
-	// Setup
-    String output = String("hello world");
-    String path = String("/Users/matthew/Desktop/write_test.txt");
-    output.writeToFile(path);
-    String input = String::StringWithContentsOfFile(path);
-
-    // Assertion
-    EXPECT_STREQ("hello world", input.c_string());
-}
-
-TEST(String, write_to_file_overwrite) {
-    // Setup
-    String output1 = String("to be overwritten");
-    String output2 = String("hello world");
-    String path = String("/Users/matthew/Desktop/overwrite_test.txt");
-    output1.writeToFile(path);
-    output2.writeToFile(path);
-    String input = String::StringWithContentsOfFile(path);
-
-    // Assertion
-    EXPECT_STREQ("hello world", input.c_string());
-}
-
-// AppendToFile
-
-TEST(String, append_to_file) {
-    // Setup
-    String output1 = String("hello");
-    String output2 = String(" world");
-    String path = String("/Users/matthew/Desktop/append_test.txt");
-    String empty = String();
-    empty.writeToFile(path);
-    output1.appendToFile(path);
-    output2.appendToFile(path);
-    String input = String::StringWithContentsOfFile(path);
-
-    // Assertion
-    EXPECT_STREQ("hello world", input.c_string());
-}
+//TEST(String, write_to_file) {
+//	// Setup
+//    String output = String("hello world");
+//    String path = String("/Users/matthew/Desktop/write_test.txt");
+//    output.writeToFile(path);
+//    String input = String::StringWithContentsOfFile(path);
+//
+//    // Assertion
+//    EXPECT_STREQ("hello world", input.c_string());
+//}
+//
+//TEST(String, write_to_file_overwrite) {
+//    // Setup
+//    String output1 = String("to be overwritten");
+//    String output2 = String("hello world");
+//    String path = String("/Users/matthew/Desktop/overwrite_test.txt");
+//    output1.writeToFile(path);
+//    output2.writeToFile(path);
+//    String input = String::StringWithContentsOfFile(path);
+//
+//    // Assertion
+//    EXPECT_STREQ("hello world", input.c_string());
+//}
+//
+//// AppendToFile
+//
+//TEST(String, append_to_file) {
+//    // Setup
+//    String output1 = String("hello");
+//    String output2 = String(" world");
+//    String path = String("/Users/matthew/Desktop/append_test.txt");
+//    String empty = String();
+//    empty.writeToFile(path);
+//    output1.appendToFile(path);
+//    output2.appendToFile(path);
+//    String input = String::StringWithContentsOfFile(path);
+//
+//    // Assertion
+//    EXPECT_STREQ("hello world", input.c_string());
+//}
 
 
 ///////////////////
