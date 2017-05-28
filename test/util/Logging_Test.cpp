@@ -157,7 +157,7 @@ TEST(Logging, info_log) {
     strftime(date_str, 25, "%F %T", &tm);
 
     std::string output = buffer.str();
-    std::string expect = date_str + std::string(" [INFO]  ") + message + "\n";
+    std::string expect = date_str + std::string(" [INFO] ") + message + "\n";
 
     // Assertion
     EXPECT_EQ(expect, output);
@@ -168,14 +168,14 @@ TEST(Logging, info_log) {
 
 // Warn
 
-TEST(Logging, warn_log) {
+TEST(Logging, warning_log) {
     // Setup
     std::stringstream buffer;
     std::streambuf* old = std::clog.rdbuf(buffer.rdbuf());
 
-    Logging logger = Logging(LogLevel::warn);
-    std::string message = "warn test";
-    logger.warn(message);
+    Logging logger = Logging(LogLevel::warning);
+    std::string message = "warning test";
+    logger.warning(message);
 
     struct tm tm = {0};
     time_t timestamp = time(NULL);
@@ -184,7 +184,7 @@ TEST(Logging, warn_log) {
     strftime(date_str, 25, "%F %T", &tm);
 
     std::string output = buffer.str();
-    std::string expect = date_str + std::string(" [WARN]  ") + message + "\n";
+    std::string expect = date_str + std::string(" [WARNING] ") + message + "\n";
 
     // Assertion
     EXPECT_EQ(expect, output);
@@ -310,7 +310,7 @@ TEST(Logging, info_enabled_true) {
 
 TEST(Logging, info_enabled_false) {
     // Setup
-    Logging logger = Logging(LogLevel::warn);
+    Logging logger = Logging(LogLevel::warning);
 
     // Assertion
     EXPECT_FALSE(logger.infoEnabled());
@@ -318,20 +318,20 @@ TEST(Logging, info_enabled_false) {
 
 // WarnEnabled
 
-TEST(Logging, warn_enabled_true) {
+TEST(Logging, warning_enabled_true) {
     // Setup
-    Logging logger = Logging(LogLevel::warn);
+    Logging logger = Logging(LogLevel::warning);
 
     // Assertion
-    EXPECT_TRUE(logger.warnEnabled());
+    EXPECT_TRUE(logger.warningEnabled());
 }
 
-TEST(Logging, warn_enabled_false) {
+TEST(Logging, warning_enabled_false) {
     // Setup
     Logging logger = Logging(LogLevel::error);
 
     // Assertion
-    EXPECT_FALSE(logger.warnEnabled());
+    EXPECT_FALSE(logger.warningEnabled());
 }
 
 // ErrorEnabled
@@ -380,7 +380,7 @@ TEST(Logging, all_enabled_true) {
     EXPECT_TRUE(logger.traceEnabled());
     EXPECT_TRUE(logger.debugEnabled());
     EXPECT_TRUE(logger.infoEnabled());
-    EXPECT_TRUE(logger.warnEnabled());
+    EXPECT_TRUE(logger.warningEnabled());
     EXPECT_TRUE(logger.errorEnabled());
     EXPECT_TRUE(logger.fatalEnabled());
 }
