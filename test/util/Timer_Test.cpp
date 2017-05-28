@@ -23,7 +23,7 @@ TEST(Timer, interval_constructor) {
     // Assertion
     EXPECT_FALSE(t._isAlive);
     EXPECT_EQ(0, t._callCount);
-    EXPECT_EQ(-1l, t._repeatCount);
+    EXPECT_EQ(1, t._repeatCount);
     EXPECT_EQ(expect_interval, t._interval);
 }
 
@@ -82,15 +82,11 @@ TEST(Timer, get_call_count_five) {
     // Setup
     Timer t = Timer(std::chrono::milliseconds(1), 5, [](){});
     t.start();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+    if (t._thread.joinable()) { t._thread.join(); }
 
     // Assertion
     EXPECT_EQ(5, t.getCallCount());
-
-    // Clean Up
-    if (t._thread.joinable()) {
-        t._thread.join();
-    }
 }
 
 // GetRepeatCount
@@ -196,7 +192,7 @@ TEST(Timer, set_target) {
 TEST(Timer, started_sync) {
     // Setup
     int i = 0;
-    Timer t = Timer(std::chrono::milliseconds(1), 1, [&i](){
+    Timer t = Timer(std::chrono::milliseconds(1), [&i](){
         i = 5;
     });
 
@@ -209,7 +205,7 @@ TEST(Timer, started_sync) {
 TEST(Timer, started_async) {
     // Setup
     int i = 0;
-    Timer t = Timer(std::chrono::milliseconds(1), 1, [&i](){
+    Timer t = Timer(std::chrono::milliseconds(1), [&i](){
         i = 5;
     });
 

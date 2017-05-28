@@ -15,6 +15,8 @@
 
 namespace mrlib {
 
+    static const size_t Timer_Forever = -1l;
+
     class Timer {
     public:
         // Internal Data
@@ -36,10 +38,10 @@ namespace mrlib {
         // TODO: Add timepoint parameter
 
         // Getters
-        bool    isAlive() const;
-        size_t  getCallCount() const;
-        size_t  getRepeatCount() const;
-        std::chrono::nanoseconds  getInterval() const;
+        bool   isAlive() const;
+        size_t getCallCount() const;
+        size_t getRepeatCount() const;
+        std::chrono::nanoseconds getInterval() const;
 
         // Setters
         void setRepeatCount(size_t count);
@@ -63,7 +65,7 @@ namespace mrlib {
     Timer::Timer(const std::chrono::duration<Rep, Period>& interval, const std::function<void(void)>& target) {
         this->_isAlive = false;
         this->_callCount = 0;
-        this->_repeatCount = -1l;
+        this->_repeatCount = 1;
         this->_interval = std::chrono::duration_cast<std::chrono::nanoseconds>(interval);
         this->_target = target;
     }
@@ -145,7 +147,7 @@ namespace mrlib {
     inline
     void Timer::_run() {
 
-        while (this->_isAlive && (this->_repeatCount == -1l || this->_repeatCount-- > 0)) {
+        while (this->_isAlive && (this->_repeatCount == Timer_Forever || this->_repeatCount-- > 0)) {
             std::this_thread::sleep_for(this->_interval);
             this->_target();
             ++this->_callCount;
