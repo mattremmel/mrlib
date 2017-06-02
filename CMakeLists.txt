@@ -21,11 +21,12 @@ set(HEADER_UTIL mrlib/util)
 set(HEADER_CONT mrlib/container)
 set(HEADER_SYS  mrlib/system)
 set(HEADER_NET  mrlib/network)
-set(HEADER_ALL  ${HEADER_CORE} ${HEADER_UTIL} ${HEADER_CONT} ${HEADER_SYS} ${HEADER_NET})
+set(HEADER_MEM  mrlib/memory)
+set(HEADER_ALL  ${HEADER_CORE} ${HEADER_UTIL} ${HEADER_CONT} ${HEADER_SYS} ${HEADER_NET} ${HEADER_MEM})
 
 
 ### Test Source ###
-set(TEST_SOURCE test/containers/String_Test.cpp test/containers/Array_Test.cpp test/containers/Dictionary_Test.cpp test/util/Random_Test.cpp test/util/Stopwatch_Test.cpp test/util/Logging_Test.cpp test/util/Timer_Test.cpp)
+set(TEST_SOURCE test/containers/String_Test.cpp test/containers/Array_Test.cpp test/containers/Dictionary_Test.cpp test/util/Random_Test.cpp test/util/Stopwatch_Test.cpp test/util/Logging_Test.cpp test/util/Timer_Test.cpp test/memory/Singleton_Test.cpp)
 
 ### Testing Framework ###
 set(TEST_FRAMEWORK_MAIN test/googletest-1.7.0/gtest_main.cc)
